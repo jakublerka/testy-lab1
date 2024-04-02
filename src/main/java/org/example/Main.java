@@ -85,7 +85,7 @@ public class Main {
         };
 
         //int[][] outputTable = calculatePossibleMoves(inputTable);
-        int[][] outputTable = markPossibleMoves(inputTable, 0,0);
+        int[][] outputTable = markPossibleMoves(inputTable, 3,4);
 
         // --- Wyświetlenie wyniku ---
         for (int i = 0; i < 8; i++) {

@@ -59,8 +59,8 @@ public class mainTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        output = Main.calculatePossibleMoves(inputTable);
-        assertThat(Main.calculatePossibleMoves(inputTable), equalTo(output));
+        output = Main.markPossibleMoves(inputTable, 0,0);
+        assertThat(Main.markPossibleMoves(inputTable,0,0), equalTo(output));
 
     }
 
@@ -87,8 +87,8 @@ public class mainTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        output = Main.calculatePossibleMoves(inputTable);
-        assertThat(Main.calculatePossibleMoves(inputTable), equalTo(output));
+        output = Main.markPossibleMoves(inputTable, 0,0);
+        assertThat(Main.markPossibleMoves(inputTable,0,0), equalTo(output));
     }
 
     @Test
@@ -113,8 +113,8 @@ public class mainTest {
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
-        output = Main.calculatePossibleMoves(inputTable);
-        assertThat(Main.calculatePossibleMoves(inputTable), equalTo(output));
+        output = Main.markPossibleMoves(inputTable, 0,0);
+        assertThat(Main.markPossibleMoves(inputTable,0,0), equalTo(output));
     }
 
 
@@ -124,9 +124,10 @@ public class mainTest {
         //Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj wartosc X pionka");
         inputIntX = random.nextInt(-10,10);
+        System.out.println("Podana wartosc: "+inputIntX);
 
         assertThat(inputIntX, is(lessThan(8)));
-        assertThat(inputIntX, is(greaterThan(0)));
+        assertThat(inputIntX, is(greaterThanOrEqualTo(0)));
     }
 
     @Test
@@ -135,9 +136,10 @@ public class mainTest {
         //Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj wartosc Y pionka");
         inputIntY = random.nextInt(-10,10);
+        System.out.println("Podana wartosc: "+inputIntY);
 
         assertThat(inputIntY, is(lessThan(8)));
-        assertThat(inputIntY, is(greaterThan(0)));
+        assertThat(inputIntY, is(greaterThanOrEqualTo(0)));
     }
 
 }
