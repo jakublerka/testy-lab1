@@ -1,10 +1,9 @@
 import org.example.Main;
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Random;
-import java.util.Scanner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -15,9 +14,10 @@ public class mainTest {
 
     int inputTable[][] = new int[8][8];
     int output[][] = new int[8][8];
-    int inputIntX, inputIntY, pionek;
+    int inputIntX, inputIntY;
 
-    @After
+    //Printuje input i wynik każdego testu na konsolę
+    @AfterEach
     public void print(){
         System.out.println("Input:                         Output:");
         for (int i = 0; i < 8; i++) {
@@ -37,7 +37,7 @@ public class mainTest {
 
 
     @Test
-    public void testLeftCorner() {
+    public void testTopLeftCorner() {
         inputTable = new int[][]{
                 {1, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
@@ -60,13 +60,40 @@ public class mainTest {
         };
 
         output = Main.markPossibleMoves(inputTable, 0,0);
-        assertThat(Main.markPossibleMoves(inputTable,0,0), equalTo(output));
-
+        assertThat(output, equalTo(outputTable));
     }
 
     @Test
-    public void testRightCorner() {
-        inputTable = new int[][]{
+    public void testBottomLeftCorner() {
+        inputTable  = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] outputTable = new int[][]{
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1}
+        };
+
+        output = Main.markPossibleMoves(inputTable, 7,0);
+        assertThat(output, equalTo(outputTable));
+    }
+
+
+    @Test
+    public void testTopRightCorner() {
+        inputTable  = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 1},
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
@@ -87,12 +114,39 @@ public class mainTest {
                 {0, 0, 0, 0, 0, 0, 0, 1}
         };
 
-        output = Main.markPossibleMoves(inputTable, 0,0);
-        assertThat(Main.markPossibleMoves(inputTable,0,0), equalTo(output));
+        output = Main.markPossibleMoves(inputTable, 0,7);
+        assertThat(output, equalTo(outputTable));
     }
 
     @Test
-    public void testZero() {
+    public void testBottomRightCorner() {
+        inputTable  = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        int[][] outputTable = new int[][]{
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1}
+        };
+
+        output = Main.markPossibleMoves(inputTable, 7,7);
+        assertThat(output, equalTo(outputTable));
+    }
+
+    @Test
+    public void testMiddle() {
         inputTable = new int[][]{
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
@@ -104,42 +158,49 @@ public class mainTest {
                 {0, 0, 0, 0, 0, 0, 0, 0}
         };
         int[][] outputTable = new int[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0}
         };
-        output = Main.markPossibleMoves(inputTable, 0,0);
-        assertThat(Main.markPossibleMoves(inputTable,0,0), equalTo(output));
+        output = Main.markPossibleMoves(inputTable, 3,3);
+        assertThat(output, equalTo(outputTable));
     }
 
 
     @Test
-    public void checkPlayerInputX() {
-        Random random = new Random();
-        //Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj wartosc X pionka");
-        inputIntX = random.nextInt(-10,10);
-        System.out.println("Podana wartosc: "+inputIntX);
-
-        assertThat(inputIntX, is(lessThan(8)));
+    public void checkPlayerInputXEqualAboveZero() {
+        inputIntX = 0;
         assertThat(inputIntX, is(greaterThanOrEqualTo(0)));
+        System.out.println("Wartość X: "+inputIntX+" jest równa bądź większa od 0");
+
     }
 
     @Test
-    public void checkPlayerInputY() {
-        Random random = new Random();
-        //Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj wartosc Y pionka");
-        inputIntY = random.nextInt(-10,10);
-        System.out.println("Podana wartosc: "+inputIntY);
+    public void checkPlayerInputXEqualBelowSever() {
+        inputIntX = 0;
+        assertThat(inputIntX, is(lessThanOrEqualTo(7)));
+        System.out.println("Wartość X: "+inputIntX+" jest równa bądź mniejsza od 7");
+    }
 
-        assertThat(inputIntY, is(lessThan(8)));
+    @Test
+    public void checkPlayerInputYEqualAboveZero() {
+        inputIntY = 5;
         assertThat(inputIntY, is(greaterThanOrEqualTo(0)));
+        System.out.println("Wartość Y: "+inputIntY+" jest równa bądź większa od 0");
+
+    }
+
+    @Test
+    public void checkPlayerInputYEqualBelowSeven() {
+        inputIntY = 7;
+        assertThat(inputIntY, is(lessThanOrEqualTo(7)));
+        System.out.println("Wartość Y: "+inputIntY+" jest równa bądź mniejsza od 7");
+
     }
 
 }
